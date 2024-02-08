@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+ # seed 50 records
+50.times do
+   todo = Todo.create(title: Faker::Lorem.word, created_by: User.first.id)
+   todo.items.create(name: Faker::Lorem.word, done: false)
+ end
