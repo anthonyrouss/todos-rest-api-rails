@@ -1,3 +1,4 @@
+module V1
 class ItemsController < ApplicationController
     before_action :set_todo
     before_action :set_todo_item, only: [:show, :update, :destroy]
@@ -42,5 +43,7 @@ class ItemsController < ApplicationController
 
     def set_todo_item
         @item = @todo.items.find_by!(id: params[:id]) if @todo
+    end
+
     end
 end
