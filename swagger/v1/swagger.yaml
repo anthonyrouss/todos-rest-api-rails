@@ -1,0 +1,277 @@
+---
+openapi: 3.0.1
+info:
+  title: TODOs API
+  version: v1
+paths:
+  "/auth/login":
+    post:
+      summary: login
+      tags:
+      - Authentication
+      description: Login to generate a token
+      parameters: []
+      responses:
+        '200':
+          description: successful
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/signup":
+    post:
+      summary: signup
+      tags:
+      - Authentication
+      description: Signup to generate a token
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - name
+              - email
+              - password
+  "/todos/{todo_id}/items":
+    parameters:
+    - name: todo_id
+      in: path
+      description: todo_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: get all todo items
+      tags:
+      - Todo Items
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: not found
+        '422':
+          description: invalid request
+    post:
+      summary: create a new todo item
+      tags:
+      - Todo Items
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '404':
+          description: not found
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                done:
+                  type: boolean
+                  default: false
+              required:
+              - title
+              - done
+  "/todos/{todo_id}/items/{id}":
+    parameters:
+    - name: todo_id
+      in: path
+      description: todo_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: get a todo item
+      tags:
+      - Todo Items
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: not found
+        '422':
+          description: invalid request
+    put:
+      summary: update a todo item
+      tags:
+      - Todo Items
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '204':
+          description: successful with no content
+        '404':
+          description: not found
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                done:
+                  type: boolean
+              required:
+              - title
+              - done
+    delete:
+      summary: delete a todo item
+      tags:
+      - Todo Items
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: successful with no content
+        '404':
+          description: not found
+        '422':
+          description: invalid request
+  "/todos":
+    get:
+      summary: list all todos and todo items
+      tags:
+      - Todos
+      security:
+      - Bearer: []
+      responses:
+        '422':
+          description: invalid request
+    post:
+      summary: create a new todo
+      tags:
+      - Todos
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+              required:
+              - title
+  "/todos/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: get a todo
+      tags:
+      - Todos
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+        '422':
+          description: invalid request
+        '404':
+          description: not found
+    put:
+      summary: update a todo
+      tags:
+      - Todos
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '204':
+          description: successful with no content
+        '422':
+          description: invalid request
+        '404':
+          description: not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+              required:
+              - title
+    delete:
+      summary: delete a todo and its items
+      tags:
+      - Todos
+      security:
+      - Bearer: []
+      responses:
+        '204':
+          description: successful with no content
+        '422':
+          description: invalid request
+        '404':
+          description: not found
+servers:
+- url: http://{defaultHost}:3000
+  variables:
+    defaultHost:
+      default: localhost
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Your Bearer token
