@@ -15,7 +15,7 @@ gem 'will_paginate', '~> 3.3'
 gem 'pagy'
 
 
-gem 'faker'
+# gem 'faker'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
@@ -35,6 +35,10 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 gem 'jwt'
+
+gem 'rswag'
+
+gem 'faker'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -56,7 +60,6 @@ end
 group :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
-  gem 'faker'
   gem 'database_cleaner'
 end
 
