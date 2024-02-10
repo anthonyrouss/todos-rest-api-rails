@@ -264,10 +264,10 @@ paths:
         '404':
           description: not found
 servers:
-- url: http://{defaultHost}:3000
+- url: https://{defaultHost}
   variables:
     defaultHost:
-      default: localhost
+      default: cloud-host
 components:
   securitySchemes:
     Bearer:
